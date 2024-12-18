@@ -22,10 +22,10 @@ export const App = () => {
   const REVERSE = 'reverse';
   const RESET = 'reset';
   const [sort, setSort] = useState('');
-  const [reversePressed, setreversePressed] = useState(false);
-  const [alphPressed, setalphPressed] = useState(false);
-  const [lengthPressed, setlengthPressed] = useState(false);
-  const [sortedGoods, setsortedGoods] = useState([...goodsFromServer]);
+  const [reversePressed, setReversePressed] = useState(false);
+  const [alphPressed, setAlphPressed] = useState(false);
+  const [lengthPressed, setLengthPressed] = useState(false);
+  const [sortedGoods, setSortedGoods] = useState([...goodsFromServer]);
 
   const handleSort = type => {
     let newGoods = [...goodsFromServer];
@@ -34,13 +34,13 @@ export const App = () => {
       switch (type) {
         case SORT_ALPHABETICALLY:
           newGoods.sort((good1, good2) => good2.localeCompare(good1));
-          setlengthPressed(false);
+          setLengthPressed(false);
           break;
         case SORT_BY_LENGTH:
           newGoods = [...sortedGoods].sort(
             (good1, good2) => good2.length - good1.length,
           );
-          setalphPressed(false);
+          setAlphPressed(false);
 
           break;
         case REVERSE:
@@ -48,9 +48,9 @@ export const App = () => {
           break;
         case RESET:
           newGoods = [...goodsFromServer];
-          setreversePressed(false);
-          setalphPressed(false);
-          setlengthPressed(false);
+          setReversePressed(false);
+          setAlphPressed(false);
+          setLengthPressed(false);
           break;
         default:
           break;
@@ -59,11 +59,11 @@ export const App = () => {
       switch (type) {
         case SORT_ALPHABETICALLY:
           newGoods.sort((good1, good2) => good1.localeCompare(good2));
-          setlengthPressed(false);
+          setLengthPressed(false);
           break;
         case SORT_BY_LENGTH:
           newGoods.sort((good1, good2) => good1.length - good2.length);
-          setalphPressed(false);
+          setAlphPressed(false);
 
           break;
         case REVERSE:
@@ -71,20 +71,20 @@ export const App = () => {
           break;
         case RESET:
           newGoods = [...goodsFromServer];
-          setreversePressed(false);
-          setalphPressed(false);
-          setlengthPressed(false);
+          setReversePressed(false);
+          setAlphPressed(false);
+          setLengthPressed(false);
           break;
         default:
           break;
       }
     }
 
-    setsortedGoods(newGoods);
+    setSortedGoods(newGoods);
     setSort(type);
   };
 
-  const resetButton = () => {
+  const renderResetButton = () => {
     return (
       <button
         type="button"
@@ -98,8 +98,6 @@ export const App = () => {
     );
   };
 
- 
-
   return (
     <div className="section content">
       <div className="buttons">
@@ -107,11 +105,11 @@ export const App = () => {
           type="button"
           className={classNames('button is-info', {
             'is-light': alphPressed !== true,
-            NOT_ACTIVE_CLASS: sort !== SORT_ALPHABETICALLY,
+            'NOT_ACTIVE_CLASS' : sort !== SORT_ALPHABETICALLY,
           })}
           onClick={() => {
             handleSort(SORT_ALPHABETICALLY);
-            setalphPressed(!alphPressed);
+            setAlphPressed(!alphPressed);
           }}
         >
           Sort alphabetically
@@ -121,11 +119,11 @@ export const App = () => {
           type="button"
           onClick={() => {
             handleSort(SORT_BY_LENGTH);
-            setlengthPressed(!lengthPressed);
+            setLengthPressed(!lengthPressed);
           }}
           className={classNames('button is-success', {
             'is-light': lengthPressed !== true,
-            NOT_ACTIVE_CLASS: sort !== SORT_BY_LENGTH,
+            'NOT_ACTIVE_CLASS' : sort !== SORT_BY_LENGTH,
           })}
         >
           Sort by length
@@ -135,11 +133,11 @@ export const App = () => {
           type="button"
           className={classNames('button is-warning', {
             'is-light': reversePressed !== true,
-            NOT_ACTIVE_CLASS: sort !== REVERSE,
+            'NOT_ACTIVE_CLASS' : sort !== REVERSE,
           })}
           onClick={() => {
             handleSort(REVERSE);
-            setreversePressed(!reversePressed);
+            setReversePressed(!reversePressed);
           }}
         >
           Reverse
@@ -147,11 +145,11 @@ export const App = () => {
 
         {sort !== RESET &&
         JSON.stringify(sortedGoods) !== JSON.stringify(goodsFromServer)
-          ? resetButton()
+          ? renderResetButton()
           : null}
       </div>
       <ul>
-        {sortedGoods.map((good) => (
+        {sortedGoods.map(good => (
           <li data-cy="Good" key={good}>
             {good}
           </li>
