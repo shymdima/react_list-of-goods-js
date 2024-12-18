@@ -105,7 +105,7 @@ export const App = () => {
           type="button"
           className={classNames('button is-info', {
             'is-light': alphPressed !== true,
-            "NOT_ACTIVE_CLASS": sort !== SORT_ALPHABETICALLY,
+            'NOT_ACTIVE_CLASS' : sort !== SORT_ALPHABETICALLY,
           })}
           onClick={() => {
             handleSort(SORT_ALPHABETICALLY);
@@ -123,7 +123,7 @@ export const App = () => {
           }}
           className={classNames('button is-success', {
             'is-light': lengthPressed !== true,
-            "NOT_ACTIVE_CLASS" : sort !== SORT_BY_LENGTH,
+            'NOT_ACTIVE_CLASS' : sort !== SORT_BY_LENGTH,
           })}
         >
           Sort by length
@@ -133,7 +133,7 @@ export const App = () => {
           type="button"
           className={classNames('button is-warning', {
             'is-light': reversePressed !== true,
-            "NOT_ACTIVE_CLASS": sort !== REVERSE,
+            'NOT_ACTIVE_CLASS': sort !== REVERSE,
           })}
           onClick={() => {
             handleSort(REVERSE);
